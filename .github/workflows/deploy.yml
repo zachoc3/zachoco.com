@@ -1,0 +1,40 @@
+name: Deploy to S3
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  id-token: write # lets GitHub sign in to AWS with OIDC (no stored access keys)
+  contents: read
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      # Uploads new and changed files. Files that exist only in the bucket are left alone.
+      - name: Sync site to S3
+        run: |
+          aws s3 sync . "s3://${{ vars.S3_BUCKET }}" \
+            --exclude ".git/*" \
+            --exclude ".github/*" \
+            --exclude "*.md"
+
+      - name: Invalidate CloudFront cache
+        if: vars.CLOUDFRONT_DISTRIBUTION_ID != ''
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}" \
+            --paths "/*"
