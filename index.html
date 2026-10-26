@@ -1,45 +1,132 @@
-<!DOCTYPE HTML>
-<!--
-	Zach O'Connor
--->
-<html>
-	<head>
-		<title>Zach O'Connor</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
-		<div id="wrapper">
-			<div id="bg"></div>
-			<div id="overlay"></div>
-			<div id="main">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Zach O'Connor — Cybersecurity Engineer</title>
+	<meta name="description" content="Zach O'Connor is a cybersecurity engineer focused on incident response, detection engineering, and security architecture for critical infrastructure.">
+	<meta name="color-scheme" content="light dark">
+	<meta property="og:title" content="Zach O'Connor — Cybersecurity Engineer">
+	<meta property="og:description" content="Incident response, detection engineering, and security architecture for critical infrastructure.">
+	<meta property="og:url" content="https://zachoco.com/">
+	<meta property="og:type" content="website">
+	<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d4ed8'/%3E%3Ctext x='16' y='21.5' font-family='system-ui,sans-serif' font-size='14' font-weight='700' fill='white' text-anchor='middle'%3EZO%3C/text%3E%3C/svg%3E">
+	<link rel="canonical" href="https://zachoco.com/">
+	<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+	<main class="container">
 
-				<!-- Header -->
-					<header id="header">
-						<h1>Zach O'Connor</h1>
-						<p>Developer &nbsp;&bull;&nbsp; Security Enthusiast &nbsp;&bull;&nbsp; Dad</p>
-						<nav>
-							<ul>
-								<li><a href="https://drive.google.com/file/d/1icA9hSfrC8qRLvXClvhhbMGSIo9f6ZxU/view?usp=sharing" class="far fa-file"><span class="lebel">Resume</span></a></li>
-								<li><a href="https://www.linkedin.com/in/zachoc3/" class="fab fa-linkedin-in"><span class="lebel">LinkedIn</span></a></li>								
-								<li><a href="mailto: zachoc3@gmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-							</ul>
-						</nav>
-					</header>
+		<header class="intro">
+			<h1>Zach O'Connor</h1>
+			<p class="role">Cybersecurity Engineer at Associated Electric Cooperative</p>
+			<p class="location">Springfield, Missouri</p>
+			<p class="lede">
+				I lead incident response, build and tune detections, and engineer security solutions
+				across enterprise and critical infrastructure environments.
+			</p>
+			<nav class="links" aria-label="Contact">
+				<a href="https://drive.google.com/file/d/1JZSpeyw0UZP7KH5wff23Zm-NwwL8mLHI/view?usp=sharing">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>
+					Resume
+				</a>
+				<a href="https://www.linkedin.com/in/zachoco/">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg>
+					LinkedIn
+				</a>
+				<a href="mailto:zachoc3@gmail.com">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+					Email
+				</a>
+			</nav>
+		</header>
 
-				<!-- Footer -->
-					<footer id="footer">
-						<span class="copyright">&copy; Copyright: Zach O'Connor </a></span>
-					</footer>
+		<section>
+			<h2>About</h2>
+			<p>
+				Before AECI, I secured networks for hundreds of financial institutions at Jack Henry, and I started
+				my career as a software developer. That background shapes how I approach security: understanding
+				how systems are built makes them easier to defend.
+			</p>
+			<p>
+				Day to day, that means SIEM and EDR detection engineering, MITRE ATT&amp;CK coverage mapping,
+				threat hunting, deploying and integrating new security tooling, and handling incident escalations.
+			</p>
+			<p>
+				Security isn't just controls and tools. It's trust, accountability, and helping teams feel confident
+				in the systems they rely on. I try to contribute to that through mentorship, collaboration, and
+				practical leadership.
+			</p>
+			<p>Outside of work, I enjoy spending time with my family, golfing, and cooking.</p>
+		</section>
 
-			</div>
-		</div>
-		<script>
-			window.onload = function() { document.body.classList.remove('is-preload'); }
-			window.ontouchmove = function() { return false; }
-			window.onorientationchange = function() { document.body.scrollTop = 0; }
-		</script>
-	</body>
+		<section>
+			<h2>Experience</h2>
+			<ol class="timeline">
+				<li>
+					<div class="when">2026 — Present</div>
+					<div>
+						<h3>Cybersecurity Engineer</h3>
+						<p class="org">Associated Electric Cooperative Inc.</p>
+						<p>Detection engineering and incident response across enterprise and critical infrastructure. Drove a ~40% year-over-year reduction in security incident volume through a phased detection engineering program, including rule tuning and moving detections into a CI/CD pipeline.</p>
+					</div>
+				</li>
+				<li>
+					<div class="when">2023 — 2026</div>
+					<div>
+						<h3>Network Security Engineer II &amp; III</h3>
+						<p class="org">Jack Henry</p>
+						<p>Architected and implemented SSO, VPN, SD-WAN, RADIUS/LDAP, and MFA for hundreds of financial institutions. Managed EDR, led threat response, and delivered audit-ready risk assessments aligned with FFIEC and GLBA.</p>
+					</div>
+				</li>
+				<li>
+					<div class="when">2022</div>
+					<div>
+						<h3>Programmer Analyst, Adv</h3>
+						<p class="org">Jack Henry</p>
+						<p>Managed high-volume traffic between IBM iSeries servers and external APIs, and owned the TLS certificate lifecycle across systems.</p>
+					</div>
+				</li>
+				<li>
+					<div class="when">2018 — 2022</div>
+					<div>
+						<h3>Software Developer</h3>
+						<p class="org">Prime Inc.</p>
+						<p>Built enterprise applications for fleet management, dispatching, and logistics, supporting thousands of internal users.</p>
+					</div>
+				</li>
+			</ol>
+		</section>
+
+		<section>
+			<h2>Certifications</h2>
+			<ul class="tags">
+				<li>CompTIA SecAI+</li>
+				<li>CompTIA CySA+</li>
+				<li>CompTIA Security+</li>
+				<li>CompTIA CSAP</li>
+			</ul>
+		</section>
+
+		<section>
+			<h2>Recognition</h2>
+			<ul class="plain">
+				<li><strong>Tech Professional of the Year (Large Team)</strong> <span class="muted">— Springfield Tech Council, 2025</span></li>
+				<li><strong>Rising Star Finalist</strong> <span class="muted">— Excellence in Technology Awards, 2019</span></li>
+			</ul>
+		</section>
+
+		<section>
+			<h2>Education</h2>
+			<ul class="plain">
+				<li><strong>B.S., Computer Information Systems</strong> <span class="muted">— Missouri State University, 2018</span></li>
+			</ul>
+		</section>
+
+		<footer>
+			<p>&copy; 2026 Zach O'Connor</p>
+		</footer>
+
+	</main>
+</body>
 </html>

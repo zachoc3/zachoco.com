@@ -1,0 +1,132 @@
+:root {
+	--bg: #ffffff;
+	--fg: #18181b;
+	--muted: #6b7280;
+	--line: #e5e7eb;
+	--accent: #1d4ed8;
+	--chip: #f3f4f6;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--bg: #0b0b0e;
+		--fg: #e4e4e7;
+		--muted: #9ca3af;
+		--line: #26262b;
+		--accent: #60a5fa;
+		--chip: #18181d;
+	}
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+	margin: 0;
+	background: var(--bg);
+	color: var(--fg);
+	font: 16px/1.65 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+}
+
+.container {
+	max-width: 680px;
+	margin: 0 auto;
+	padding: 96px 24px 48px;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+h1, h2, h3 { margin: 0; line-height: 1.25; }
+
+/* Intro */
+.intro h1 {
+	font-size: 2.5rem;
+	font-weight: 700;
+	letter-spacing: -0.025em;
+}
+.role { margin: 8px 0 0; font-size: 1.125rem; font-weight: 500; }
+.location { margin: 2px 0 0; color: var(--muted); }
+.lede { margin: 24px 0 0; font-size: 1.0625rem; }
+
+.links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.links a {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 14px;
+	border: 1px solid var(--line);
+	border-radius: 999px;
+	color: var(--fg);
+	font-size: 0.9375rem;
+	font-weight: 500;
+	transition: border-color .15s, color .15s;
+}
+.links a:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+.links svg {
+	width: 16px;
+	height: 16px;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 2;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+/* Sections */
+section { margin-top: 72px; }
+section h2 {
+	margin-bottom: 20px;
+	color: var(--muted);
+	font-size: 0.8125rem;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+section p { margin: 0 0 16px; }
+section p:last-child { margin-bottom: 0; }
+
+/* Experience */
+.timeline { list-style: none; margin: 0; padding: 0; }
+.timeline li {
+	display: grid;
+	grid-template-columns: 120px 1fr;
+	gap: 24px;
+	padding: 20px 0;
+	border-top: 1px solid var(--line);
+}
+.timeline li:first-child { border-top: 0; padding-top: 0; }
+.when { color: var(--muted); font-size: 0.875rem; padding-top: 2px; font-variant-numeric: tabular-nums; }
+.timeline h3 { font-size: 1rem; font-weight: 600; }
+.org { margin: 2px 0 8px !important; color: var(--muted); }
+
+/* Lists */
+.tags { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; }
+.tags li {
+	padding: 4px 12px;
+	background: var(--chip);
+	border-radius: 6px;
+	font-size: 0.9375rem;
+}
+
+.plain { list-style: none; margin: 0; padding: 0; }
+.plain li + li { margin-top: 10px; }
+.plain strong { font-weight: 600; }
+.muted { color: var(--muted); }
+
+footer {
+	margin-top: 96px;
+	padding-top: 24px;
+	border-top: 1px solid var(--line);
+	color: var(--muted);
+	font-size: 0.875rem;
+}
+
+@media (max-width: 560px) {
+	.container { padding-top: 56px; }
+	.intro h1 { font-size: 2rem; }
+	section { margin-top: 56px; }
+	.timeline li { grid-template-columns: 1fr; gap: 4px; }
+}
