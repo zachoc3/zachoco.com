@@ -1,26 +1,28 @@
 # Deployment
 
-Every push to `main` runs `.github/workflows/deploy.yml`, which uploads the site to S3 and,
-if configured, clears the CloudFront cache. It can also be run by hand from the
-**Actions** tab ("Deploy to S3" → "Run workflow").
+The site is a private S3 bucket (`zachoco`, us-east-1) behind CloudFront (`E13ZSBIKZY30W0`).
 
-GitHub signs in to AWS with OpenID Connect (OIDC), so no AWS access keys are stored in GitHub.
+Every push to `main` runs `.github/workflows/deploy.yml`, which:
 
-## One-time AWS setup
+1. Signs in to AWS as `GitHubActionsZachocoDeployRole` using OpenID Connect, so no AWS keys are
+   stored in GitHub.
+2. Syncs the repo to the bucket with `--delete`, so the bucket always matches `main`.
+   `.git/`, `.github/`, and Markdown files are not uploaded.
+3. Invalidates the CloudFront cache so changes show up right away.
 
-### 1. Add GitHub as an identity provider
+It can also be run by hand from the **Actions** tab ("Deploy to AWS" → "Run workflow").
 
-IAM → **Identity providers** → **Add provider**
+## Security headers
 
-- Provider type: **OpenID Connect**
-- Provider URL: `https://token.actions.githubusercontent.com`
-- Audience: `sts.amazonaws.com`
+CloudFront adds security headers through the response headers policy
+`zachoco-security-headers-v3`, which is already attached to the distribution. Its
+Content-Security-Policy only allows scripts, styles, and fonts served from zachoco.com itself, so
+**inline `<script>` and `<style>` tags and `style="..."` attributes are blocked**. Put CSS in
+`assets/css/style.css` and any JavaScript in a separate `.js` file.
 
-### 2. Create a role for the workflow
+## IAM role
 
-IAM → **Roles** → **Create role** → **Web identity**, pick the provider above and audience
-`sts.amazonaws.com`. Then replace the role's trust policy with the following, so only the `main`
-branch of this repo can use it (replace `ACCOUNT_ID`):
+The role's trust policy must allow this repo's `main` branch:
 
 ```json
 {
@@ -29,7 +31,7 @@ branch of this repo can use it (replace `ACCOUNT_ID`):
     {
       "Effect": "Allow",
       "Principal": {
-        "Federated": "arn:aws:iam::ACCOUNT_ID:oidc-provider/token.actions.githubusercontent.com"
+        "Federated": "arn:aws:iam::655311368493:oidc-provider/token.actions.githubusercontent.com"
       },
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
@@ -43,45 +45,6 @@ branch of this repo can use it (replace `ACCOUNT_ID`):
 }
 ```
 
-Attach an inline permissions policy that only allows writing to the site bucket (replace
-`BUCKET_NAME`; drop the second statement if there is no CloudFront distribution):
-
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": ["s3:ListBucket"],
-      "Resource": "arn:aws:s3:::BUCKET_NAME"
-    },
-    {
-      "Effect": "Allow",
-      "Action": ["s3:PutObject", "s3:GetObject"],
-      "Resource": "arn:aws:s3:::BUCKET_NAME/*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": ["cloudfront:CreateInvalidation"],
-      "Resource": "*"
-    }
-  ]
-}
-```
-
-### 3. Configure the GitHub repo
-
-Repo → **Settings** → **Secrets and variables** → **Actions**
-
-| Kind     | Name                         | Value                                           |
-| -------- | ---------------------------- | ----------------------------------------------- |
-| Secret   | `AWS_ROLE_ARN`               | ARN of the role from step 2                     |
-| Variable | `AWS_REGION`                 | Bucket region, e.g. `us-east-1`                 |
-| Variable | `S3_BUCKET`                  | Bucket that holds `index.html`                  |
-| Variable | `CLOUDFRONT_DISTRIBUTION_ID` | Optional; leave unset if there is no CloudFront |
-
-## Notes
-
-- The sync never deletes files from the bucket. Leftover files from the old template are
-  harmless and can be removed by hand.
-- `.git/`, `.github/`, and Markdown files are not uploaded.
+Its permissions need `s3:ListBucket` on `arn:aws:s3:::zachoco`, `s3:GetObject`,
+`s3:PutObject` and `s3:DeleteObject` on `arn:aws:s3:::zachoco/*`, and
+`cloudfront:CreateInvalidation` on the distribution.
